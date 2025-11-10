@@ -8,16 +8,21 @@ def write_text_report(target: str, data: Dict[str, Any], out_dir: str = 'reports
     safe = target.replace('/', '_').replace(':','_')
     path = os.path.join(out_dir, f"{safe}_{ts}.txt")
     lines: List[str] = []
-    lines.append('AXIOM-PRO REPORT')
+    lines.append('AXIOM REPORT')
     lines.append(f"Target: {target}")
     lines.append(f"Generated: {datetime.utcnow().isoformat()} UTC")
     lines.append('='*60)
-    # DNS
+    
+    # DNS - Fixed error handling
     lines.append('\n[DNS]')
     dns = data.get('dns', {})
-    for k,v in dns.items():
-        if v:
-            lines.append(f"{k}: {', '.join(v)}")
+    if dns.get('error'):
+        lines.append(f"DNS error: {dns.get('error')}")
+    else:
+        for k,v in dns.items():
+            if v and isinstance(v, list):
+                lines.append(f"{k}: {', '.join(v)}")
+    
     # WHOIS
     lines.append('\n[WHOIS]')
     who = data.get('whois', {})
@@ -27,6 +32,7 @@ def write_text_report(target: str, data: Dict[str, Any], out_dir: str = 'reports
         for k in ('domain_name','registrar','creation_date','expiration_date'):
             if who.get(k):
                 lines.append(f"{k}: {who.get(k)}")
+    
     # Subdomains
     lines.append('\n[SUBDOMAINS]')
     subs = data.get('subdomains', [])
@@ -35,6 +41,7 @@ def write_text_report(target: str, data: Dict[str, Any], out_dir: str = 'reports
             lines.append('- ' + s)
     else:
         lines.append('None (fast wordlist)')
+    
     # Ports
     lines.append('\n[PORTS]')
     ports = data.get('ports', [])
@@ -45,6 +52,7 @@ def write_text_report(target: str, data: Dict[str, Any], out_dir: str = 'reports
             lines.append(f"{p['port']:<8}{p['state']:<8}{(p.get('banner') or '')[:120]}")
     else:
         lines.append('No open ports found')
+    
     # HTTP
     lines.append('\n[HTTP]')
     http = data.get('http', {})
@@ -56,6 +64,7 @@ def write_text_report(target: str, data: Dict[str, Any], out_dir: str = 'reports
             for k in ('server','x-powered-by','content-type','strict-transport-security','content-security-policy','x-frame-options'):
                 if k in http.get('headers',{}):
                     lines.append(f"  {k}: {http['headers'][k]}")
+    
     with open(path, 'w') as f:
         f.write('\n'.join(lines) + '\n')
     return path
