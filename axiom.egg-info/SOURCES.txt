@@ -1,0 +1,11 @@
+README.md
+setup.py
+axiom/__init__.py
+axiom/__main__.py
+axiom/cli.py
+axiom.egg-info/PKG-INFO
+axiom.egg-info/SOURCES.txt
+axiom.egg-info/dependency_links.txt
+axiom.egg-info/entry_points.txt
+axiom.egg-info/requires.txt
+axiom.egg-info/top_level.txt

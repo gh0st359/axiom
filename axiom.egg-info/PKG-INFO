@@ -1,0 +1,9 @@
+Metadata-Version: 2.4
+Name: axiom
+Version: 2.0.0
+Summary: Axiom — Infrastructure Intelligence CLI Tool
+Requires-Dist: requests>=2.31.0
+Requires-Dist: dnspython>=2.4.2
+Requires-Dist: python-whois>=0.8.0
+Dynamic: requires-dist
+Dynamic: summary
