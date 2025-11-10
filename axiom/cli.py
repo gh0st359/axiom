@@ -8,7 +8,7 @@ from .utils.logger import get_logger
 BANNER = """
 ╔═══════════════════════════════════════════════════════╗
 ║  AXIOM — Infrastructure Intelligence CLI v2.0         ║
-║  Sleek. Local-first. No paid APIs.                    ║
+║  Covert Intelligence  -  Silent Recon                 ║
 ╚═══════════════════════════════════════════════════════╝
 """
 
