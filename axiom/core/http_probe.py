@@ -9,7 +9,7 @@ def http_headers(host: str, use_https: bool = True, timeout: float = 2.0) -> Dic
             conn = http.client.HTTPSConnection(host, 443, timeout=timeout, context=ctx)
         else:
             conn = http.client.HTTPConnection(host, 80, timeout=timeout)
-        conn.request('GET', '/', headers={'Host': host, 'User-Agent': 'axiom-pro/0.1'})
+        conn.request('GET', '/', headers={'Host': host, 'User-Agent': 'axiom/2.0'})
         resp = conn.getresponse()
         headers = {k.lower(): v for k,v in resp.getheaders()}
         sample = resp.read(512).decode(errors='ignore')
