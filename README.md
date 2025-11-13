@@ -19,7 +19,7 @@ axiom -t 1.1.1.1 -p 22,80,443 -T 200
 axiom -f targets.txt --no-subdomains
 ```
 
-# Example Output
+## Example Output
 ```bash
 [INFO] Scanning example.com
 [INFO] Starting reconnaissance for example.com
